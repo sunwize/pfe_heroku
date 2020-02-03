@@ -1,0 +1,15 @@
+$theme-colors: (
+);
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap-vue/src/index.scss';
+@import "../../node_modules/bootstrap/scss/variables";
+
+// Custom import
+@import 'modal.scss';
+
+@media screen and (max-width: 600px) {
+  h3 {
+    font-size: 1rem;
+  }
+}
