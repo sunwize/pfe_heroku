@@ -1,7 +1,7 @@
 from bson import ObjectId, json_util
 from fonctions import load_data, prediction, entrainementQuiz, predictionQuiz, calculScoreBigFive
 import pandas as pd
-from flask import Flask, render_template, request, jsonify, json, g
+from flask import Blueprint, Flask, render_template, request, jsonify, json, g
 from flask_cors import CORS, cross_origin
 import ast
 import pymongo
@@ -12,9 +12,7 @@ import json
 ###################################                   PREDICTIONS                   ######################################
 ##########################################################################################################################
 
-app = Flask(__name__,
-			static_folder = "./dist/static",
-			template_folder = "./dist")
+app = Flask(__name__, static_folder = "./dist", template_folder = "./dist", static_url_path='')
 
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -23,7 +21,7 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
-    return render_template('index.html')
+	return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
 def donnerPersonnalite():
