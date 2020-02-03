@@ -19,13 +19,21 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def index(path):
+def catch_all(path):
+	return render_template('index.html')
+	
+@app.route('/quizz-mbti')
+def quizz_mbti():
+	return render_template('index.html')
+
+@app.route('/quizz-big5')
+def quizz_big5():
 	return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
 def donnerPersonnalite():
-    print("test predict")
     data = request.args.get('text')
+    print(data)
     df = pd.read_csv("dataset/mbti_1.csv")
     load_data(df)
     #entrainement(output_dir="./model")
