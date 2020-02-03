@@ -22,7 +22,7 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 def index(path):
 	return render_template('index.html')
 
-@app.route('/textPrediction/<text>', methods=['GET', 'POST'])
+@app.route('/textPrediction', methods=['GET', 'POST'])
 def donnerPersonnalite():
     print("test predict")
     data = request.args.get('text')
@@ -30,7 +30,7 @@ def donnerPersonnalite():
     load_data(df)
     #entrainement(output_dir="./model")
     #f = open("text.txt", "r")
-    js = prediction(model="./model", text=text)
+    js = prediction(model="./model", text=data)
 
     INTRO="E"
     INTUITION="S"
