@@ -18,7 +18,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
 @app.route('/app')
-def index(subpath):
+def index():
     return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
