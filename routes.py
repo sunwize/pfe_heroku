@@ -12,13 +12,17 @@ import json
 ###################################                   PREDICTIONS                   ######################################
 ##########################################################################################################################
 
-app = Flask(__name__)
+app = Flask(__name__,
+			static_folder = "./dist/static",
+			template_folder = "./dist")
+
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
-@app.route('/app')
-def index():
+@app.route('/app', defaults={'path': ''})
+@app.route('/<path:path>')
+def index(path):
     return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
