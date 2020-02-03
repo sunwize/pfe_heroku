@@ -1,7 +1,7 @@
 from bson import ObjectId, json_util
 from fonctions import load_data, prediction, entrainementQuiz, predictionQuiz, calculScoreBigFive
 import pandas as pd
-from flask import Blueprint, Flask, render_template, request, jsonify, json, g
+from flask import Flask, render_template, request, jsonify, json, g
 from flask_cors import CORS, cross_origin
 import ast
 import pymongo
@@ -12,8 +12,7 @@ import json
 ###################################                   PREDICTIONS                   ######################################
 ##########################################################################################################################
 
-app = Flask(__name__, static_folder = "./dist", template_folder = "./dist", static_url_path='')
-
+app = Flask(__name__, static_folder = "./dist", template_folder = "./dist", static_url_path="")
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
@@ -23,7 +22,7 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 def index(path):
 	return render_template('index.html')
 
-@app.route('/textPrediction', methods=['GET', 'POST'])
+@app.route('/textPrediction/<text>', methods=['GET', 'POST'])
 def donnerPersonnalite():
     print("test predict")
     data = request.args.get('text')
@@ -31,7 +30,7 @@ def donnerPersonnalite():
     load_data(df)
     #entrainement(output_dir="./model")
     #f = open("text.txt", "r")
-    js = prediction(model="./model", text=data)
+    js = prediction(model="./model", text=text)
 
     INTRO="E"
     INTUITION="S"
