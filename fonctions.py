@@ -226,7 +226,7 @@ def calculScoreBigFive(tabR=None):
     lScore = [[E, "S", "R"], [N, "L", "C"], [C, "O", "U"], [A, "A", "E"], [O, "N", "I"]]
     
     for Score, trait1, trait2 in lScore:
-        if Score >= 50:
+        if Score >= 20:
             SigleBIG5 = SigleBIG5 + trait1
         else:
             SigleBIG5 = SigleBIG5 + trait2
