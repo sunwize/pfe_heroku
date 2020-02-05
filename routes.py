@@ -21,13 +21,17 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 @app.route('/<path:path>')
 def catch_all(path):
 	return render_template('index.html')
-	
+
 @app.route('/quizz-mbti')
 def quizz_mbti():
 	return render_template('index.html')
 
 @app.route('/quizz-big5')
 def quizz_big5():
+	return render_template('index.html')
+
+@app.route('/sources')
+def sources():
 	return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
