@@ -19,25 +19,13 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def catch_all(path):
-	return render_template('index.html')
-
-@app.route('/quizz-mbti')
-def quizz_mbti():
-	return render_template('index.html')
-
-@app.route('/quizz-big5')
-def quizz_big5():
-	return render_template('index.html')
-
-@app.route('/sources')
-def sources():
+def index(path):
 	return render_template('index.html')
 
 @app.route('/textPrediction', methods=['GET', 'POST'])
 def donnerPersonnalite():
+    print("test predict")
     data = request.args.get('text')
-    print(data)
     df = pd.read_csv("dataset/mbti_1.csv")
     load_data(df)
     #entrainement(output_dir="./model")
@@ -123,10 +111,11 @@ def insertBDD():
 
 @app.route('/get', methods=['GET', 'POST'])
 def getBDD():
-    personnalityBig5Mbti=db.personnalityBig5Mbti
-    result = personnalityBig5Mbti.find()
-    result=str(list(result))
-
+    personnalityBig5Mbti = db.personnalityBig5Mbti
+    result = personnalityBig5Mbti.find({}, { "_id": 0, "mbti": 1, "big5": 1 })
+    result = list(result)
+    d = dict()
+    d["data"] = result
 
     # # create an empty DataFrame obj for storing Series objects
     # docs = pd.DataFrame(columns=[])
@@ -144,4 +133,4 @@ def getBDD():
     #     docs = docs.append(series_obj)
 
 
-    return result
+    return d
